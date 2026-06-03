@@ -1,0 +1,32 @@
+<div class="container mt-4">
+    <h2>cart 테이블 수정</h2>
+    <form action="/purchase/cartupdate_process" method="post">
+        <input class="form-control" type="hidden" name="cart_id" value="<%= data.cart_id %>">
+
+        <div class="mb-3">
+            <label class="form-label">고객</label>
+            <select name="loginid" class="form-select" style="width:300px;">
+                <% for (var i = 0; i < persons.length; i++) { %>
+                    <option value="<%= persons[i].loginid %>" <%= data.loginid === persons[i].loginid ? 'selected' : '' %>><%= persons[i].name %></option>
+                <% } %>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">상품</label>
+            <select name="prod_id" class="form-select" style="width:300px;">
+                <% for (var i = 0; i < products.length; i++) { %>
+                    <option value="<%= products[i].prod_id %>" <%= data.prod_id == products[i].prod_id ? 'selected' : '' %>><%= products[i].name %></option>
+                <% } %>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">날짜</label>
+            <input class="form-control" type="text" name="date" value="<%= data.date %>" readonly style="width:300px; background-color:rgb(204, 203, 203);">
+        </div>
+
+        <button class="btn btn-outline-primary btn-sm" type="submit">수정</button>
+        <a href="/purchase/cartview"><button class="btn btn-outline-primary btn-sm" type="button">카트 목록 돌아가기</button></a>
+    </form>
+</div>

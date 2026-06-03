@@ -1,0 +1,23 @@
+<div class="container mt-4">
+    <h3>테이블 관리</h3>
+    <table class="table table-bordered border-primary table-hover mt-3" style="text-align: center;">
+        <thead class="table-primary">
+            <tr>
+                <th>테이블 명</th>
+                <th>테이블 설명</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (data.length === 0) { %>
+                <tr><td colspan="2">테이블이 없습니다.</td></tr>
+            <% } else { %>
+                <% for (var i = 0; i < data.length; i++) { %>
+                <tr>
+                    <td><a href="/table/view/<%= data[i].TABLE_NAME %>"><%= data[i].TABLE_NAME %></a></td>
+                    <td><%= data[i].TABLE_COMMENT || '' %></td>
+                </tr>
+                <% } %>
+            <% } %>
+        </tbody>
+    </table>
+</div>

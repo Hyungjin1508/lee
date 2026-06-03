@@ -1,0 +1,24 @@
+<div class="container mt-4">
+    <table class="table table-bordered mt-3">
+        <tr><th style="width:100px;">제목</th><td><%= parentPost.title %></td></tr>
+        <tr><th>작성자</th><td><%= parentPost.writer_name || parentPost.loginid %></td></tr>
+        <tr><th>작성일</th><td><%= parentPost.date %></td></tr>
+        <tr><th>내용</th><td style="white-space: pre-wrap;"><%= parentPost.content %></td></tr>
+    </table>
+
+    <form action="/board/answer_process" method="post">
+        <input type="hidden" name="type_id" value="<%= boardtype.type_id %>">
+        <input type="hidden" name="p_id" value="<%= parentPost.board_id %>">
+        <input type="hidden" name="parent_title" value="<%= parentPost.title %>">
+
+        <div class="mb-3">
+            <label class="form-label"><strong>답변</strong></label>
+            <textarea class="form-control" name="content" style="width:800px; height:150px;"></textarea>
+        </div>
+
+        <button class="btn btn-outline-primary btn-sm" type="submit">작성</button>
+        <a href="/board/view/<%= boardtype.numPerPage %>/<%= boardtype.type_id %>">
+            <button type="button" class="btn btn-info btn-sm">목록</button>
+        </a>
+    </form>
+</div>

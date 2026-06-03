@@ -1,0 +1,45 @@
+<div class="container mt-4">
+    <h3>코드 관리</h3>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>대분류</th>
+                <th>대분류명</th>
+                <th>소분류</th>
+                <th>소분류명</th>
+                <th>시작일</th>
+                <th>종료일</th>
+                <% if (cls === 'MNG') { %>
+                <th>메뉴</th>
+                <% } %>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (data.length === 0) { %>
+            <tr>
+                <td colspan="7">자료가 없으니 코드 추가 버튼으로 코드를 추가해 주십시오.</td>
+            </tr>
+            <% } %>
+            <% data.forEach((row) => { %>
+            <tr>
+                <td><%= row.main_id %></td>
+                <td><%= row.main_name %></td>
+                <td><%= row.sub_id %></td>
+                <td><%= row.sub_name %></td>
+                <td><%= row.start %></td>
+                <td><%= row.end %></td>
+                <% if (cls === 'MNG') { %>
+                <td>
+                    <a href="/code/update/<%= row.main_id %>/<%= row.sub_id %>/<%= row.start %>/<%= row.end %>">수정</a>
+                    <a href="/code/delete/<%= row.main_id %>/<%= row.sub_id %>/<%= row.start %>/<%= row.end %>"
+                       onclick="return confirm('삭제하시겠습니까?')">삭제</a>
+                </td>
+                <% } %>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <% if (cls === 'MNG') { %>
+    <a href="/code/create" class="btn btn-primary">코드 추가</a>
+    <% } %>
+</div>

@@ -1,0 +1,48 @@
+<div class="container mt-4">
+    <h1><%= boardtype.title %></h1>
+    <% if (boardtype.description) { %><p><%= boardtype.description %></p><% } %>
+
+    <table class="table table-bordered border-primary table-hover mt-3">
+        <thead>
+            <tr>
+                <th>작성자</th>
+                <th>제목</th>
+                <th>날짜</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (data.length === 0) { %>
+                <tr><td colspan="3" class="text-center">게시글이 없습니다.</td></tr>
+            <% } else { %>
+                <% for (var i = 0; i < data.length; i++) { %>
+                <tr>
+                    <td><%= data[i].writer_name || data[i].loginid %></td>
+                    <td>
+                        <a href="/board/detail/<%= data[i].board_id %>/<%= boardtype.type_id %>/<%= boardtype.re_YN %>">
+                            <% if (data[i].p_id) { %>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<%= data[i].title %>
+                            <% } else { %>
+                                <%= data[i].title %>
+                            <% } %>
+                        </a>
+                    </td>
+                    <td><%= data[i].date %></td>
+                </tr>
+                <% } %>
+            <% } %>
+        </tbody>
+    </table>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <%
+            var canWrite = false;
+            if (cls === 'MNG') canWrite = true;
+            else if (boardtype.write_YN === 'Y' && login) canWrite = true;
+        %>
+        <% if (canWrite) { %>
+            <a href="/board/create/<%= boardtype.type_id %>">
+                <button type="button" class="btn btn-info me-md-2">글쓰기</button>
+            </a>
+        <% } %>
+    </div>
+</div>

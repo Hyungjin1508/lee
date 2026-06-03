@@ -1,0 +1,46 @@
+<div class="container mt-4">
+    <h3>회원 관리</h3>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>PW</th>
+                <th>이름</th>
+                <th>성별</th>
+                <th>주소</th>
+                <th>전화번호</th>
+                <th>생일</th>
+                <th>클래스</th>
+                <th>메뉴</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (data.length === 0) { %>
+            <tr>
+                <td colspan="9">자료가 없으니 고객 추가 버튼으로 고객을 추가해 주십시오.</td>
+            </tr>
+            <% } %>
+            <% data.forEach((row) => { %>
+            <tr>
+                <td><%= row.loginid %></td>
+                <td><%= row.password %></td>
+                <td><%= row.name %></td>
+                <td><%= row.mf === 'F' ? '여자' : '남자' %></td>
+                <td><%= row.address %></td>
+                <td><%= row.tel %></td>
+                <td><%= row.birth %></td>
+                <td>
+                    <%= row.class %>
+                    (<%= row.class === 'MNG' ? '관리자' : row.class === 'CST' ? '고객' : row.class === 'CEO' ? '경영자' : row.class %>)
+                </td>
+                <td>
+                    <a href="/person/update/<%= row.loginid %>">수정</a>
+                    <a href="/person/delete/<%= row.loginid %>"
+                       onclick="return confirm('삭제하시겠습니까?')">삭제</a>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <a href="/person/create" class="btn btn-primary">고객 추가</a>
+</div>

@@ -1,0 +1,40 @@
+<div class="container mt-4">
+    <h3>게시판 종류 관리</h3>
+    <table class="table table-bordered border-primary table-hover mt-3" style="text-align: center;">
+        <thead class="table-primary">
+            <tr>
+                <th>제목</th>
+                <th>페이지당 글 수</th>
+                <th>설명</th>
+                <th>일반 사용자 쓰기</th>
+                <th>댓글</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (data.length === 0) { %>
+                <tr>
+                    <td colspan="7" class="text-center">
+                        자료가 없으니 게시판 종류 추가 버튼으로 코드를 추가해 주십시오.
+                    </td>
+                </tr>
+            <% } else { %>
+                <% for (var i = 0; i < data.length; i++) { %>
+                <tr>
+                    <td><a href="/board/view/<%= data[i].numPerPage %>/<%= data[i].type_id %>"><%= data[i].title %></a></td>
+                    <td><%= data[i].numPerPage %></td>
+                    <td><%= data[i].description %></td>
+                    <td><%= data[i].write_YN === 'Y' ? 'Yes' : 'No' %></td>
+                    <td><%= data[i].re_YN === 'Y' ? 'Yes' : 'No' %></td>
+                    <td><a href="/boardtype/update/<%= data[i].type_id %>">수정</a></td>
+                    <td><a href="/boardtype/delete/<%= data[i].type_id %>" onclick="if(confirm('정말로 삭제하시겠습니까?')==false) return false">삭제</a></td>
+                </tr>
+                <% } %>
+            <% } %>
+        </tbody>
+    </table>
+
+    <a href="/boardtype/create">
+        <button class="btn btn-outline-secondary btn-sm" type="button">게시판 종류 추가</button>
+    </a>
+</div>

@@ -1,0 +1,42 @@
+<div class="container mt-4">
+    <% if (mode === 'create') { %>
+        <h2><%= tableName %> 데이터 생성</h2>
+        <form action="/table/create_process/<%= tableName %>" method="post">
+    <% } else { %>
+        <h2><%= tableName %> 데이터 수정</h2>
+        <form action="/table/update_process/<%= tableName %>" method="post">
+            <input type="hidden" name="_pkColumn" value="<%= pkColumn %>">
+            <input type="hidden" name="_pkValue" value="<%= pkValue %>">
+    <% } %>
+
+        <% for (var c = 0; c < columns.length; c++) { %>
+            <%
+                var col = columns[c];
+                var colName = col.COLUMN_NAME;
+                var colLabel = col.COLUMN_COMMENT || colName;
+                var isAuto = col.EXTRA === 'auto_increment';
+                var val = (typeof data[colName] !== 'undefined' && data[colName] !== null) ? data[colName] : '';
+            %>
+
+            <% if (isAuto) { %>
+                <!-- auto_increment 컬럼은 표시만 (생성 시 숨김, 수정 시 읽기전용) -->
+                <% if (mode === 'update') { %>
+                    <div class="mb-3">
+                        <label class="form-label"><%= colLabel %> (자동생성)</label>
+                        <input class="form-control" type="text" value="<%= val %>" style="width:300px; background-color:#ccc;" readonly>
+                    </div>
+                <% } %>
+            <% } else { %>
+                <div class="mb-3">
+                    <label class="form-label"><%= colLabel %></label>
+                    <input class="form-control" type="text" name="<%= colName %>" value="<%= val %>" style="width:300px;">
+                </div>
+            <% } %>
+        <% } %>
+
+        <button class="btn btn-outline-primary btn-sm" type="submit"><%= mode === 'create' ? '생성' : '수정' %></button>
+        <a href="/table/view/<%= tableName %>">
+            <button class="btn btn-outline-secondary btn-sm" type="button">목록 돌아가기</button>
+        </a>
+    </form>
+</div>

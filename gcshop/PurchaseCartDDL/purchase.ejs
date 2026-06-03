@@ -1,0 +1,40 @@
+<div class="container mt-4">
+    <h3>구매 내역</h3>
+    <table class="table table-bordered mt-3">
+        <tr style="text-align: center; vertical-align: middle;">
+            <th>상품</th>
+            <th>상품명</th>
+            <th>단가</th>
+            <th>구매량</th>
+            <th>총금액</th>
+            <th>구매일</th>
+            <th>취소여부</th>
+        </tr>
+
+        <% if (typeof data !== 'undefined' && data.length > 0) { %>
+            <% for (var i = 0; i < data.length; i++) { %>
+            <tr style="text-align: center; vertical-align: middle;">
+                <td>
+                    <a href="/detail/<%= data[i].prod_id %>" style="text-decoration: none;">
+                        ![image](/images/<%= data[i].image %>)
+                    </a>
+                </td>
+                <td><%= data[i].prod_name %></td>
+                <td><%= data[i].price ? data[i].price.toLocaleString() : 0 %> 원</td>
+                <td><%= data[i].qty %></td>
+                <td><%= data[i].total ? data[i].total.toLocaleString() : 0 %> 원</td>
+                <td><%= data[i].date %></td>
+                <td>
+                    <% if (data[i].cancel === 'N') { %>
+                        <a href="/purchase/cancel/<%= data[i].purchase_id %>" style="text-decoration: none;">구매취소</a>
+                    <% } else { %>
+                        취소된 상품
+                    <% } %>
+                </td>
+            </tr>
+            <% } %>
+        <% } else { %>
+            <tr><td colspan="7" style="text-align:center;">구매 내역이 없습니다.</td></tr>
+        <% } %>
+    </table>
+</div>

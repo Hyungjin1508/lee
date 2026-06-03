@@ -1,0 +1,14 @@
+<div class="container mt-4" style="max-width:400px;">
+    <h3>로그인</h3>
+    <form action="/auth/login_process" method="POST">
+        <div class="mb-3">
+            <label class="form-label">ID</label>
+            <input type="text" name="loginid" class="form-control" placeholder="아이디를 입력해 주세요" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">PW</label>
+            <input type="password" name="password" class="form-control" placeholder="패스워드를 입력해 주세요" required>
+        </div>
+        <button type="submit" class="btn btn-primary">로그인</button>
+    </form>
+</div>

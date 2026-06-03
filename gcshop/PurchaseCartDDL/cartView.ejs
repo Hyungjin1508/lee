@@ -1,0 +1,32 @@
+<div class="container mt-4">
+    <h3>장바구니 관리 (관리자)</h3>
+    <table class="table table-bordered border-primary table-hover mt-3" style="text-align: center;">
+        <thead class="table-primary">
+            <tr>
+                <th>loginid</th>
+                <th>고객명</th>
+                <th>상품id</th>
+                <th>상품명</th>
+                <th>일자</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (typeof data !== 'undefined' && data.length > 0) { %>
+                <% for (var i = 0; i < data.length; i++) { %>
+                <tr>
+                    <td><%= data[i].loginid %></td>
+                    <td><%= data[i].cust_name %></td>
+                    <td><%= data[i].prod_id %></td>
+                    <td><%= data[i].prod_name %></td>
+                    <td><%= data[i].date %></td>
+                    <td><a href="/purchase/cartupdate/<%= data[i].cart_id %>" style="text-decoration: none;">수정</a></td>
+                    <td><a href="/purchase/cartdelete/<%= data[i].cart_id %>" style="text-decoration: none;" onclick="if(confirm('정말로 삭제하시겠습니까?')==false) return false">삭제</a></td>
+                </tr>
+                <% } %>
+            <% } else { %>
+                <tr><td colspan="7">장바구니 데이터가 없습니다.</td></tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>

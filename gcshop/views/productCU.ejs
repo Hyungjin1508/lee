@@ -1,0 +1,53 @@
+<div class="container mt-4" style="max-width:500px;">
+    <h3>상품 <%= mode === 'create' ? '입력' : '수정' %></h3>
+    <form action="/product/<%= mode === 'create' ? 'create_process' : 'update_process' %>"
+          method="POST" enctype="multipart/form-data">
+
+        <% if (mode === 'update') { %>
+            <input type="hidden" name="prod_id" value="<%= data.prod_id %>">
+            <input type="hidden" name="oldImage" value="<%= data.image %>">
+        <% } %>
+
+        <div class="mb-3">
+            <label class="form-label">카테고리</label>
+            <select name="category" class="form-select" required>
+                <option value="">선택</option>
+                <% codes.forEach((c) => { %>
+                    <option value="<%= c.main_id %>,<%= c.sub_id %>"
+                        <%= (data.main_id === c.main_id && data.sub_id === c.sub_id) ? 'selected' : '' %>>
+                        <%= c.main_name %> : <%= c.sub_name %>
+                    </option>
+                <% }); %>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">제품명</label>
+            <input type="text" name="name" class="form-control" value="<%= data.name %>" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">가격</label>
+            <input type="number" name="price" class="form-control" value="<%= data.price %>" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">재고</label>
+            <input type="number" name="stock" class="form-control" value="<%= data.stock %>" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">브랜드</label>
+            <input type="text" name="brand" class="form-control" value="<%= data.brand %>" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">공급자</label>
+            <input type="text" name="supplier" class="form-control" value="<%= data.supplier %>" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">이미지파일</label>
+            <% if (mode === 'update' && data.image) { %>
+                <div class="mb-2"><%= data.image %></div>
+            <% } %>
+            <input type="file" name="image" class="form-control" accept="image/*">
+        </div>
+        <button type="submit" class="btn btn-primary"><%= mode === 'create' ? '입력' : '수정' %></button>
+        <a href="/product/view" class="btn btn-secondary">제품 목록 돌아가기</a>
+    </form>
+</div>
